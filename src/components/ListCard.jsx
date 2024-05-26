@@ -3,7 +3,6 @@ import pokeApi from "../api/modules/pokedex.api"
 import pokeball from "../assets/pokeball.png"
 import { bgColors, textColors } from "../utils/color"
 import { typeListSvg } from "../utils/svgs"
-import Modal from "react-modal"
 import PokeDetails from "./PokeDetails"
 
 const ListCard = ({ poke }) => {
@@ -13,16 +12,13 @@ const ListCard = ({ poke }) => {
   const url = poke.url
   const parts = url.split("/")
   const id = parts[parts.length - 2]
-  const formattedId = `#${String(id).padStart(4, "0")}`
+  const formatedId = `#${String(id).padStart(4, "0")}`
 
   const imgUrl = pokeInfo?.sprites?.other?.["official-artwork"]?.front_default
   const mainType = pokeInfo?.types[0].type.name
 
   const openModal = () => {
     setIsOpen(true)
-  }
-  const closeModal = () => {
-    setIsOpen(false)
   }
 
   useEffect(() => {
@@ -54,8 +50,8 @@ const ListCard = ({ poke }) => {
           className="absolute h-8rem overflow-hidden -top-16 left-32 "
         />
       </div>
-      <div className="z-10">
-        <div className="text-xs">{formattedId}</div>
+      <div className="z-2">
+        <div className="text-xs">{formatedId}</div>
         <h2 className="first-letter:capitalize text-[26px] font-bold">
           {pokeInfo.name}
         </h2>
@@ -80,9 +76,14 @@ const ListCard = ({ poke }) => {
           </div>
         ))}
       </div>
-      <Modal isOpen={isOpen}>
-        <PokeDetails pokeId={id} pokeInfo={pokeInfo} />
-      </Modal>
+      <PokeDetails
+        pokeId={id}
+        pokeInfo={pokeInfo}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        imgUrl={imgUrl}
+        formatedId={formatedId}
+      />
     </div>
   ) : null
 }

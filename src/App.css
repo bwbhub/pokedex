@@ -12,3 +12,18 @@
 .card-poke:hover .img-poke {
   transform: scale(1.1) rotate(12deg);
 }
+
+.bg-title {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+  animation: sliding 2s infinite linear;
+}
+
+@keyframes sliding {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: calc(100% - 130vw);
+  }
+}
