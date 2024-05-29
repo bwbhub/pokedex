@@ -1,68 +1,105 @@
 import React, { useEffect, useState } from "react"
 import pokeApi from "../api/modules/pokedex.api"
 import pokeball from "../assets/pokeball.png"
-import { bgColors, textColors } from "../utils/color"
+import { bgColors, textColors, hexToRgba } from "../utils/color"
 import { typeListSvg } from "../utils/svgs"
 import Modal from "react-modal"
+import About from "./card/About"
+import Evolution from "./card/Evolution"
+import Stats from "./card/Stats"
 
-const modalStyle = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    width: "50%",
-    height: "65%",
-    borderRadius: "25px",
-    padding: 0
-  }
-}
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faClose } from "@fortawesome/free-solid-svg-icons"
 
 const PokeDetails = ({
   pokeId,
   pokeInfo,
-  isOpen,
-  setIsOpen,
   imgUrl,
-  formatedId
+  formatedId,
+  modalOpen,
+  handleClose
 }) => {
   const [pokeDetails, setPokeDetails] = useState([])
-  const mainType = pokeInfo?.types[0].type.name
+  const [activeComp, setActiveComp] = useState("about")
 
-  const closeModal = () => {
-    setIsOpen(false)
+  const mainType = pokeInfo?.types[0].type.name
+  const color = bgColors[mainType]
+
+  const modalComponent = () => {
+    switch (activeComp) {
+      case "about":
+        return <About pokeDetails={pokeDetails} pokeInfo={pokeInfo} />
+      case "stats":
+        return <Stats pokeInfo={pokeInfo} color={color} />
+      case "evolution":
+        return (
+          <Evolution
+            pokeInfo={pokeInfo}
+            pokeDetails={pokeDetails}
+            imgUrl={imgUrl}
+          />
+        )
+      default:
+        return <About pokeDetails={pokeDetails} pokeInfo={pokeInfo} />
+    }
+  }
+
+  const modalStyle = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      maxWidth: "400px",
+      height: "600px",
+      borderRadius: "24px",
+      padding: 0,
+      border: "0px",
+      backgroundColor: color
+    }
   }
 
   useEffect(() => {
-    const getDetails = async (pokeId) => {
-      const { response, err } = await pokeApi.getDetails({ pokeId: pokeId })
+    if (modalOpen) {
+      const getDetails = async (pokeId) => {
+        const { response, err } = await pokeApi.getDetails({ pokeId: pokeId })
 
-      if (response) {
-        console.log(response)
-        setPokeDetails(response)
-      } else {
-        console.error(err)
+        if (response) {
+          setPokeDetails(response)
+        } else {
+          console.error(err)
+        }
       }
+      getDetails(pokeId)
+    } else {
+      return
     }
-    getDetails(pokeId)
-  }, [setPokeDetails, pokeId])
+  }, [setPokeDetails, pokeId, modalOpen])
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={closeModal} style={modalStyle}>
+    <Modal
+      isOpen={modalOpen}
+      onRequestClose={handleClose}
+      style={modalStyle}
+      ariaHideApp={false}
+      shouldCloseOnOverlayClick={false}
+    >
       <div
         id="top-panel"
-        className="w-full h-1/3 flex overflow-hidden flex-row items-center text-white relative"
-        style={{
-          backgroundColor: bgColors[mainType]
-        }}
+        className="w-full h-[175px] flex overflow-hidden flex-row items-center text-white relative"
       >
+        <FontAwesomeIcon
+          icon={faClose}
+          className="absolute right-4 top-4 z-10 cursor-pointer"
+          onClick={handleClose}
+        />
         <div className="absolute -top-4">
           <p
             className="bg-title relative text-9xl uppercase top-1 font-bold"
             style={{
-              color: bgColors[mainType]
+              color: color
             }}
           >
             {pokeInfo.name}
@@ -75,7 +112,7 @@ const PokeDetails = ({
               left: 0,
               right: 0,
               bottom: 0,
-              background: `linear-gradient(to top, rgba(204, 104, 10, 1) 10%, rgba(204, 104, 10, 0) 100%)`,
+              background: `linear-gradient(to top, ${hexToRgba(color, 1)} 10%, ${hexToRgba(color, 0)} 100%)`,
               pointerEvents: "none"
             }}
           />
@@ -90,7 +127,7 @@ const PokeDetails = ({
               left: 0,
               right: 0,
               bottom: 0,
-              background: `linear-gradient(to bottom, rgba(204, 104, 10, 1) 30%, rgba(204, 104, 10, 0) 100%)`,
+              background: `linear-gradient(to bottom, ${hexToRgba(color, 1.5)} 40%, ${hexToRgba(color, 0)} 100%)`,
               pointerEvents: "none"
             }}
           />
@@ -125,7 +162,31 @@ const PokeDetails = ({
           </div>
         </div>
       </div>
-      <div id="bot-panel"></div>
+      <div id="bot-panel" className="h-[425px] flex flex-col">
+        <div className=" h-8">
+          <ul className="flex flex-row justify-around capitalize text-white">
+            <li
+              className={`cursor-pointer ${activeComp === "about" ? "font-bold" : null}`}
+              onClick={() => setActiveComp("about")}
+            >
+              about
+            </li>
+            <li
+              className={`cursor-pointer ${activeComp === "stats" ? "font-bold" : null}`}
+              onClick={() => setActiveComp("stats")}
+            >
+              stats
+            </li>
+            <li
+              className={`cursor-pointer ${activeComp === "evolution" ? "font-bold" : null}`}
+              onClick={() => setActiveComp("evolution")}
+            >
+              evolution
+            </li>
+          </ul>
+        </div>
+        {modalComponent()}
+      </div>
     </Modal>
   )
 }

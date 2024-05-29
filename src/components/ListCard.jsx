@@ -7,7 +7,15 @@ import PokeDetails from "./PokeDetails"
 
 const ListCard = ({ poke }) => {
   const [pokeInfo, setPokeInfo] = useState(null)
-  const [isOpen, setIsOpen] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
+
+  const openModal = () => {
+    setModalOpen(!modalOpen)
+  }
+
+  const handleClose = () => {
+    setModalOpen(!modalOpen)
+  }
 
   const url = poke.url
   const parts = url.split("/")
@@ -16,10 +24,6 @@ const ListCard = ({ poke }) => {
 
   const imgUrl = pokeInfo?.sprites?.other?.["official-artwork"]?.front_default
   const mainType = pokeInfo?.types[0].type.name
-
-  const openModal = () => {
-    setIsOpen(true)
-  }
 
   useEffect(() => {
     const getList = async () => {
@@ -79,10 +83,10 @@ const ListCard = ({ poke }) => {
       <PokeDetails
         pokeId={id}
         pokeInfo={pokeInfo}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
         imgUrl={imgUrl}
         formatedId={formatedId}
+        modalOpen={modalOpen}
+        handleClose={handleClose}
       />
     </div>
   ) : null

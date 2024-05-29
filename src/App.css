@@ -16,14 +16,14 @@
 .bg-title {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: white;
-  animation: sliding 2s infinite linear;
+  animation: sliding 20s infinite linear;
 }
 
 @keyframes sliding {
   0% {
-    left: 0;
+    transform: translateX(100%);
   }
   100% {
-    left: calc(100% - 130vw);
+    transform: translateX(-100%);
   }
 }
