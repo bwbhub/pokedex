@@ -1,7 +1,8 @@
 {
   "files": {
-    "main.css": "/pokedex/static/css/main.d0b9a7ca.css",
-    "main.js": "/pokedex/static/js/main.a792c277.js",
+    "main.css": "/pokedex/static/css/main.5c21c1c4.css",
+    "main.js": "/pokedex/static/js/main.88fff9be.js",
+    "static/media/logo.png": "/pokedex/static/media/logo.b5d9214d21da49efb95d.png",
     "static/media/Dragon.svg": "/pokedex/static/media/Dragon.d2959b66d7ab22c6307c25a07cf1ef95.svg",
     "static/media/Psychic.svg": "/pokedex/static/media/Psychic.f6aa2659e706c298102afa39e8604e13.svg",
     "static/media/Fire.svg": "/pokedex/static/media/Fire.d2424b544432d496c733c01d4e88fd5a.svg",
@@ -22,11 +23,11 @@
     "static/media/Normal.svg": "/pokedex/static/media/Normal.ada867458d7f9fd091503ff87fa7bbb6.svg",
     "static/media/Water.svg": "/pokedex/static/media/Water.5d86ecbefed7b42313962de24f0378b5.svg",
     "static/media/Electric.svg": "/pokedex/static/media/Electric.1bdcce0af40b07d06725dfe9e53b0a16.svg",
-    "main.d0b9a7ca.css.map": "/pokedex/static/css/main.d0b9a7ca.css.map",
-    "main.a792c277.js.map": "/pokedex/static/js/main.a792c277.js.map"
+    "main.5c21c1c4.css.map": "/pokedex/static/css/main.5c21c1c4.css.map",
+    "main.88fff9be.js.map": "/pokedex/static/js/main.88fff9be.js.map"
   },
   "entrypoints": [
-    "static/css/main.d0b9a7ca.css",
-    "static/js/main.a792c277.js"
+    "static/css/main.5c21c1c4.css",
+    "static/js/main.88fff9be.js"
   ]
 }
