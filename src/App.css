@@ -6,11 +6,16 @@
   margin: 0;
   padding: 0;
   min-width: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 body {
   background-color: #3b3b3b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card-poke:hover .img-poke {
@@ -20,14 +25,63 @@ body {
 .bg-title {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: white;
-  animation: sliding 20s infinite linear;
+  animation: sliding 15s infinite linear;
+  animation-delay: 1.5s;
 }
 
 @keyframes sliding {
   0% {
-    transform: translateX(100%);
+    left: 0;
+  }
+  50% {
+    left: -40%;
   }
   100% {
-    transform: translateX(-100%);
+    left: 0;
+  }
+}
+
+.pokeball {
+  width: 150px;
+  height: 150px;
+  background-color: #d6dee1;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 7.5px solid #3b3b3b;
+  animation: frames 2s linear 0s infinite;
+}
+
+.pokeball:after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 75px;
+  background-color: #d6dee1;
+  border-bottom: 10px solid #3b3b3b;
+}
+
+.pokeball:before {
+  content: "";
+  position: absolute;
+  background-color: #d6dee1;
+  width: 45px;
+  height: 45px;
+  border: 9px solid #3b3b3b;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+/* AnimationFrames */
+@keyframes frames {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

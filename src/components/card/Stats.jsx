@@ -5,7 +5,7 @@ const Stats = ({ selectedPokeInfos, color }) => {
   const generalStats = selectedPokeInfos?.stats
 
   const stats = generalStats.map((statObj) => ({
-    stat: statObj?.stat?.name,
+    stat: statObj?.stat?.name.replace(/special/i, "s"),
     value: statObj?.base_stat
   }))
 
@@ -14,9 +14,9 @@ const Stats = ({ selectedPokeInfos, color }) => {
   return (
     <div
       id="about"
-      className="h-full w-full bg-white rounded-3xl flex flex-col items-center p-2"
+      className="h-full w-full bg-[#363636] rounded-3xl flex flex-col items-center p-2 "
     >
-      <div className="h-2/3 w-full overflow-hidden relative">
+      <div className="h-2/3 w-full overflow-hidden relative mt-3">
         <img
           src={bitImg}
           alt="bit-version"
@@ -29,13 +29,26 @@ const Stats = ({ selectedPokeInfos, color }) => {
           maxValue="150"
           margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
           valueFormat=">-.0f"
+          colors={color}
           borderColor={color}
+          borderWidth={3}
+          fillOpacity={0.4}
           gridLabelOffset={10}
-          borderWidth={1}
           motionConfig="wobbly"
           gridShape="linear"
           enableDots={false}
           isInteractive={false}
+          theme={{
+            axis: {
+              ticks: {
+                text: {
+                  fill: "#ffffff",
+                  fontSize: 13,
+                  textTransform: "capitalize"
+                }
+              }
+            }
+          }}
         />
       </div>
     </div>

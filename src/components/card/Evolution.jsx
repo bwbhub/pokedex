@@ -50,7 +50,7 @@ const Evolution = ({ pokeDetails }) => {
   return evolDetails ? (
     <div
       id="evolution"
-      className="h-full w-full bg-white rounded-3xl flex gap-3 px-3 py-4 justify-center items-center"
+      className="h-full w-full bg-[#363636] rounded-3xl flex gap-3 px-3 py-4 justify-center items-center text-white"
     >
       {evolDetails.map((detail, idx) => (
         <div className="w-1/4 flex items-center " key={detail.name + idx}>

@@ -41,7 +41,7 @@ const PokeDetails = ({ closeModal, selectedPokeInfos }) => {
     >
       <FontAwesomeIcon
         icon={faClose}
-        className="absolute right-4 top-4 z-10 cursor-pointer"
+        className="absolute right-4 top-4 z-10 cursor-pointer text-white"
         onClick={closeModal}
       />
       <TopCard pokeInfo={selectedPokeInfos} color={color} imgUrl={imgUrl} />

@@ -6,7 +6,7 @@ import { bgColors, textColors, hexToRgba } from "../utils/color"
 import { typeListSvg } from "../utils/svgs"
 import { urlConvert, formatId } from "../utils/textConvert"
 
-const ListCard = ({ poke, openModal }) => {
+const ListCard = ({ poke, openModal, modalOpen }) => {
   const [pokeInfo, setPokeInfo] = useState(null)
 
   const id = urlConvert(poke)
@@ -82,31 +82,32 @@ const ListCard = ({ poke, openModal }) => {
           }}
         />
       </div>
-      <div>
-        <div className="text-xs font-medium">{formatedId}</div>
-        <h2 className="first-letter:capitalize text-[26px] font-bold">
-          {pokeInfo?.name}
-        </h2>
-      </div>
-      <div className="img-poke absolute w-[45%] right-0 -top-5 z-100 transition ease-in-out duration-500 saturate-150 brightness-105">
-        <img src={imgUrl} alt={pokeInfo?.name} className="w-full" />
-      </div>
-
-      <div className="flex gap-3">
-        {pokeInfo?.types?.map((type, idx) => (
-          <div
-            key={type + idx}
-            className={`text-xs font-normal p-[5px] rounded flex gap-1 justify-center items-center`}
-            style={{ backgroundColor: textColors[type?.type?.name] }}
-          >
-            <img
-              src={typeListSvg[type?.type?.name]}
-              alt={`${type?.type?.name}`}
-              className=" w-4"
-            />
-            <p className="first-letter:capitalize">{type?.type?.name}</p>
-          </div>
-        ))}
+      <div className={`${modalOpen ? "z-0" : "z-10"}`}>
+        <div>
+          <div className="text-xs font-medium">{formatedId}</div>
+          <h2 className="first-letter:capitalize text-[26px] font-bold">
+            {pokeInfo?.name}
+          </h2>
+        </div>
+        <div className="img-poke absolute w-[45%] right-0 -top-2 z-100 transition ease-in-out duration-500 saturate-150 brightness-105">
+          <img src={imgUrl} alt={pokeInfo?.name} className="w-full" />
+        </div>
+        <div className="flex gap-3">
+          {pokeInfo?.types?.map((type, idx) => (
+            <div
+              key={type + idx}
+              className={`text-xs font-normal p-[5px] rounded flex gap-1 justify-center items-center`}
+              style={{ backgroundColor: textColors[type?.type?.name] }}
+            >
+              <img
+                src={typeListSvg[type?.type?.name]}
+                alt={`${type?.type?.name}`}
+                className="w-4"
+              />
+              <p className="first-letter:capitalize">{type?.type?.name}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )

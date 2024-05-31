@@ -3,6 +3,8 @@ import pokeApi from "../api/modules/pokedex.api"
 import ListCard from "./ListCard"
 import Modal from "react-modal"
 import PokeDetails from "./PokeDetails"
+import { useDispatch } from "react-redux"
+import { setGlobalLoading } from "../redux/features/globalLoadingSlice"
 
 const modalStyle = {
   content: {
@@ -16,7 +18,10 @@ const modalStyle = {
     height: "600px",
     borderRadius: "24px",
     padding: 0,
-    border: "0px"
+    border: "0"
+  },
+  overlay: {
+    backgroundColor: "rgba(0,0,0, 0.5)"
   }
 }
 
@@ -25,6 +30,8 @@ const List = () => {
   const [selectedPokeInfos, setSelectedPokeDetails] = useState(null)
   const [pokeInfoList, setPokeInfoList] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
+
+  const dispatch = useDispatch()
 
   const openModal = (details) => {
     setSelectedPokeDetails(details)
@@ -35,6 +42,8 @@ const List = () => {
   }
 
   useEffect(() => {
+    dispatch(setGlobalLoading(true))
+
     const getList = async () => {
       const { response, err } = await pokeApi.getAll()
 
@@ -45,6 +54,7 @@ const List = () => {
         console.error(err)
       }
     }
+    dispatch(setGlobalLoading(false))
 
     getList()
   }, [])
@@ -58,6 +68,7 @@ const List = () => {
           openModal={openModal}
           pokeInfoList={pokeInfoList}
           setPokeInfoList={setPokeInfoList}
+          modalOpen={modalOpen}
         />
       ))}
       <Modal isOpen={modalOpen} onRequestClose={closeModal} style={modalStyle}>
