@@ -1,7 +1,7 @@
 import React from "react"
 import { capitalizeUppercase, formatDesc } from "../../utils/textConvert"
 
-const About = ({ pokeInfo, pokeDetails }) => {
+const About = ({ selectedPokeInfos, pokeDetails }) => {
   const rawDesc = pokeDetails?.flavor_text_entries?.[2]?.flavor_text
   const okDesc = formatDesc(rawDesc)
   const useableDesc = capitalizeUppercase(okDesc)
@@ -20,11 +20,11 @@ const About = ({ pokeInfo, pokeDetails }) => {
         </ul>
         <div>
           <ul>
-            <li>{pokeInfo?.height / 10 + "m"}</li>
+            <li>{selectedPokeInfos?.height / 10 + "m"}</li>
             <li>
-              {pokeInfo?.weight / 10 +
+              {selectedPokeInfos?.weight / 10 +
                 "kg (" +
-                ((pokeInfo?.weight / 10) * 2.204).toFixed(1) +
+                ((selectedPokeInfos?.weight / 10) * 2.204).toFixed(1) +
                 "lbs)"}
             </li>
           </ul>
@@ -40,7 +40,7 @@ const About = ({ pokeInfo, pokeDetails }) => {
         <ul>
           <li>{pokeDetails?.capture_rate} / 255</li>
           <li>{pokeDetails?.base_happiness} / 255</li>
-          <li>{pokeInfo?.base_experience}</li>
+          <li>{selectedPokeInfos?.base_experience}</li>
           <li>{pokeDetails?.growth_rate?.name}</li>
         </ul>
       </div>

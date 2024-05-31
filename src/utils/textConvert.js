@@ -19,4 +19,14 @@ const capitalizeUppercase = (text) => {
   })
 }
 
-export { formatDesc, capitalizeUppercase }
+const urlConvert = (text) => {
+  const url = text?.url
+  const parts = url?.split("/")
+  const id = parts[parts.length - 2]
+
+  return id
+}
+
+const formatId = (id) => `#${String(id).padStart(4, "0")}`
+
+export { formatDesc, capitalizeUppercase, urlConvert, formatId }

@@ -2,20 +2,34 @@ import React, { useEffect, useState } from "react"
 import pokeApi from "../../api/modules/pokedex.api"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons"
+import { urlConvert } from "../../utils/textConvert"
 
-const Evolution = ({ pokeInfo, pokeDetails, imgUrl }) => {
+const Evolution = ({ pokeDetails }) => {
+  const [evolDetails, setEvolDetails] = useState(null)
+
   const url = pokeDetails?.evolution_chain?.url
   const parts = url.split("/")
   const chainId = parts[parts.length - 2]
 
-  const [evolDetails, setEvolDetails] = useState(null)
-  const [preImg, setPreImg] = useState(null)
-  const [preName, setPreName] = useState(null)
-  const [nextImg, setNextImg] = useState(null)
-  const [nextName, setNextName] = useState(null)
+  const evolutionList = (evolDetails) => {
+    const speciesList = []
 
-  const nameOfFirst = evolDetails?.species?.name
-  const nameOfNext = evolDetails?.evolves_to[0]?.species.name
+    const throughEvolutions = (evolution) => {
+      speciesList.push({
+        name: evolution?.species?.name,
+        url: evolution?.species?.url
+      })
+
+      if (evolution?.evolves_to?.length > 0) {
+        evolution?.evolves_to?.forEach((nextEvolution) => {
+          throughEvolutions(nextEvolution)
+        })
+      }
+    }
+
+    throughEvolutions(evolDetails)
+    return speciesList
+  }
 
   useEffect(() => {
     const getDetails = async (chainId) => {
@@ -23,75 +37,37 @@ const Evolution = ({ pokeInfo, pokeDetails, imgUrl }) => {
 
       if (response) {
         const evolChain = response.chain
-        console.log(evolChain)
-        setEvolDetails(evolChain)
+        const evolList = evolutionList(evolChain)
+        setEvolDetails(evolList)
       } else {
         console.error(err)
       }
     }
-    const getNextDetails = async (nameOfNext) => {
-      const { response, err } = await pokeApi.getPoke({ pokeId: nameOfNext })
 
-      if (response) {
-        setNextImg(
-          response?.sprites?.other?.["official-artwork"]?.front_default
-        )
-        setNextName(response.name)
-      } else {
-        console.error(err)
-      }
-    }
-    const getPreDetails = async (nameOfFirst) => {
-      const { response, err } = await pokeApi.getPoke({ pokeId: nameOfFirst })
-
-      if (response) {
-        setPreImg(response?.sprites?.other?.["official-artwork"]?.front_default)
-        setPreName(response.name)
-      } else {
-        console.error(err)
-      }
-    }
     getDetails(chainId)
-    getPreDetails(nameOfFirst)
-    getNextDetails(nameOfNext)
-  }, [setEvolDetails, chainId])
+  }, [])
 
-  return (
+  return evolDetails ? (
     <div
       id="evolution"
       className="h-full w-full bg-white rounded-3xl flex gap-3 px-3 py-4 justify-center items-center"
     >
-      <div className="w-1/5 flex flex-col items-center">
-        <img
-          src={preImg}
-          alt={preName}
-          className="w-full saturate-150 brightness-105"
-        />
-        <p className="capitalize text-sm font-semibold">{preName}</p>
-      </div>
-      <FontAwesomeIcon icon={faArrowRight} />
-
-      <div className="w-1/5 flex flex-col items-center">
-        <img
-          src={imgUrl}
-          alt={pokeInfo.name}
-          className="w-full saturate-150 brightness-105"
-        />
-        <p className="capitalize text-sm font-semibold">{pokeInfo.name}</p>
-      </div>
-
-      <FontAwesomeIcon icon={faArrowRight} />
-
-      <div className="w-1/5  flex flex-col items-center">
-        <img
-          src={nextImg}
-          alt={nextName}
-          className="w-full saturate-150 brightness-105"
-        />
-        <p className="capitalize text-sm font-semibold">{nextName}</p>
-      </div>
+      {evolDetails.map((detail, idx) => (
+        <div className="w-1/4 flex items-center " key={detail.name + idx}>
+          <div className="flex flex-col justify-center items-center gap-1">
+            <img
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${urlConvert(detail)}.png`}
+              alt={detail.name}
+            />
+            <p className="capitalize text-md font-semibold">{detail.name}</p>
+          </div>
+          {idx < evolDetails.length - 1 && (
+            <FontAwesomeIcon icon={faArrowRight} className="w-4/5" />
+          )}
+        </div>
+      ))}
     </div>
-  )
+  ) : null
 }
 
 export default Evolution
