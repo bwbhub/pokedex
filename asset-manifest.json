@@ -1,12 +1,13 @@
 {
   "files": {
-    "main.css": "/pokedex/static/css/main.d29bb5ab.css",
-    "main.js": "/pokedex/static/js/main.1638ae65.js",
+    "main.css": "/pokedex/static/css/main.d0b9a7ca.css",
+    "main.js": "/pokedex/static/js/main.a792c277.js",
     "static/media/Dragon.svg": "/pokedex/static/media/Dragon.d2959b66d7ab22c6307c25a07cf1ef95.svg",
     "static/media/Psychic.svg": "/pokedex/static/media/Psychic.f6aa2659e706c298102afa39e8604e13.svg",
     "static/media/Fire.svg": "/pokedex/static/media/Fire.d2424b544432d496c733c01d4e88fd5a.svg",
     "static/media/Bug.svg": "/pokedex/static/media/Bug.604386e9208942d7469aed490f850f8c.svg",
     "static/media/Fairy.svg": "/pokedex/static/media/Fairy.c37207c8d3a3fd95543c387416d54a37.svg",
+    "static/media/dot.svg": "/pokedex/static/media/dot.c77d297a09fcc61c6f5d66ba4d5a9620.svg",
     "static/media/Ghost.svg": "/pokedex/static/media/Ghost.0f9c9b7c3de47f1b2929f6b7ffcdc79a.svg",
     "static/media/Rock.svg": "/pokedex/static/media/Rock.5eeae6556f2acc735fd15cfec8847b1b.svg",
     "static/media/Fighting.svg": "/pokedex/static/media/Fighting.3876e42b5e7bc4a3343c3474e21cff4a.svg",
@@ -21,11 +22,11 @@
     "static/media/Normal.svg": "/pokedex/static/media/Normal.ada867458d7f9fd091503ff87fa7bbb6.svg",
     "static/media/Water.svg": "/pokedex/static/media/Water.5d86ecbefed7b42313962de24f0378b5.svg",
     "static/media/Electric.svg": "/pokedex/static/media/Electric.1bdcce0af40b07d06725dfe9e53b0a16.svg",
-    "main.d29bb5ab.css.map": "/pokedex/static/css/main.d29bb5ab.css.map",
-    "main.1638ae65.js.map": "/pokedex/static/js/main.1638ae65.js.map"
+    "main.d0b9a7ca.css.map": "/pokedex/static/css/main.d0b9a7ca.css.map",
+    "main.a792c277.js.map": "/pokedex/static/js/main.a792c277.js.map"
   },
   "entrypoints": [
-    "static/css/main.d29bb5ab.css",
-    "static/js/main.1638ae65.js"
+    "static/css/main.d0b9a7ca.css",
+    "static/js/main.a792c277.js"
   ]
 }
