@@ -6,7 +6,8 @@ const pokedexEndpoints = {
   pokemon: ({ pokeId }) => `pokemon/${pokeId}`,
   langue: "/language",
   species: ({ pokeId }) => `/pokemon-species/${pokeId}`,
-  evolution: ({ chainId }) => `/evolution-chain/${chainId}`
+  evolution: ({ chainId }) => `/evolution-chain/${chainId}`,
+  type: ({ typeName }) => `/type/${typeName}`
 }
 
 const pokeApi = {
@@ -54,6 +55,16 @@ const pokeApi = {
     try {
       const response = await publicClient.get(
         pokedexEndpoints.evolution({ chainId })
+      )
+      return { response }
+    } catch (err) {
+      return { err }
+    }
+  },
+  getType: async ({ typeName }) => {
+    try {
+      const response = await publicClient.get(
+        pokedexEndpoints.type({ typeName })
       )
       return { response }
     } catch (err) {

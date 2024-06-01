@@ -42,38 +42,7 @@ body {
 }
 
 .pokeball {
-  width: 150px;
-  height: 150px;
-  background-color: #d6dee1;
-  border-radius: 50%;
-  position: relative;
-  overflow: hidden;
-  border: 7.5px solid #3b3b3b;
   animation: frames 2s linear 0s infinite;
-}
-
-.pokeball:after {
-  content: "";
-  position: absolute;
-  width: 150px;
-  height: 75px;
-  background-color: #d6dee1;
-  border-bottom: 10px solid #3b3b3b;
-}
-
-.pokeball:before {
-  content: "";
-  position: absolute;
-  background-color: #d6dee1;
-  width: 45px;
-  height: 45px;
-  border: 9px solid #3b3b3b;
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-  z-index: 1;
 }
 
 /* AnimationFrames */

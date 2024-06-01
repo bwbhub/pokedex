@@ -4,7 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons"
 import { urlConvert } from "../../utils/textConvert"
 
-const Evolution = ({ pokeDetails }) => {
+import LocalLoading from "../LocalLoading"
+
+const Evolution = ({ pokeDetails, color, loading }) => {
   const [evolDetails, setEvolDetails] = useState(null)
 
   const url = pokeDetails?.evolution_chain?.url
@@ -50,22 +52,26 @@ const Evolution = ({ pokeDetails }) => {
   return evolDetails ? (
     <div
       id="evolution"
-      className="h-full w-full bg-[#363636] rounded-3xl flex gap-3 px-3 py-4 justify-center items-center text-white"
+      className="h-full w-full flex gap-3 justify-center items-center text-white"
     >
-      {evolDetails.map((detail, idx) => (
-        <div className="w-1/4 flex items-center " key={detail.name + idx}>
-          <div className="flex flex-col justify-center items-center gap-1">
-            <img
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${urlConvert(detail)}.png`}
-              alt={detail.name}
-            />
-            <p className="capitalize text-md font-semibold">{detail.name}</p>
+      {loading ? (
+        <LocalLoading color={color} />
+      ) : (
+        evolDetails.map((detail, idx) => (
+          <div className="w-1/4 flex items-center " key={detail.name + idx}>
+            <div className="flex flex-col justify-center items-center gap-1">
+              <img
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${urlConvert(detail)}.png`}
+                alt={detail.name}
+              />
+              <p className="capitalize text-md font-semibold">{detail.name}</p>
+            </div>
+            {idx < evolDetails.length - 1 && (
+              <FontAwesomeIcon icon={faArrowRight} className="w-4/5" />
+            )}
           </div>
-          {idx < evolDetails.length - 1 && (
-            <FontAwesomeIcon icon={faArrowRight} className="w-4/5" />
-          )}
-        </div>
-      ))}
+        ))
+      )}
     </div>
   ) : null
 }

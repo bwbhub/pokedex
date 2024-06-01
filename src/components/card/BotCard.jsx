@@ -1,10 +1,14 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Stats from "./Stats"
 import Evolution from "./Evolution"
 import About from "./About"
+import { useDispatch } from "react-redux"
+import { setLocalLoading } from "../../redux/features/localLoadingSlice"
 
-const BotCard = ({ selectedPokeInfos, pokeDetails, color, imgUrl }) => {
+const BotCard = ({ selectedPokeInfos, pokeDetails, color }) => {
   const [activeComp, setActiveComp] = useState("about")
+  const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch()
 
   const modalComponent = () => {
     switch (activeComp) {
@@ -13,16 +17,24 @@ const BotCard = ({ selectedPokeInfos, pokeDetails, color, imgUrl }) => {
           <About
             pokeDetails={pokeDetails}
             selectedPokeInfos={selectedPokeInfos}
+            loading={loading}
+            color={color}
           />
         )
       case "stats":
-        return <Stats selectedPokeInfos={selectedPokeInfos} color={color} />
+        return (
+          <Stats
+            selectedPokeInfos={selectedPokeInfos}
+            color={color}
+            loading={loading}
+          />
+        )
       case "evolution":
         return (
           <Evolution
-            selectedPokeInfos={selectedPokeInfos}
             pokeDetails={pokeDetails}
-            imgUrl={imgUrl}
+            color={color}
+            loading={loading}
           />
         )
       default:
@@ -30,13 +42,27 @@ const BotCard = ({ selectedPokeInfos, pokeDetails, color, imgUrl }) => {
           <About
             pokeDetails={pokeDetails}
             selectedPokeInfos={selectedPokeInfos}
+            loading={loading}
+            color={color}
           />
         )
     }
   }
 
+  useEffect(() => {
+    setLoading(true)
+    dispatch(setLocalLoading(true))
+
+    const timer = setTimeout(() => {
+      setLoading(false)
+      dispatch(setLocalLoading(false))
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [activeComp, dispatch])
+
   return (
-    <div id="bot-panel" className="h-[425px] flex flex-col">
+    <div id="bot-panel" className="h-[400px] flex flex-col">
       <div className=" h-8">
         <ul className="flex flex-row justify-around capitalize text-white">
           <li

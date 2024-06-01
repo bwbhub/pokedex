@@ -33,12 +33,7 @@ const PokeDetails = ({ closeModal, selectedPokeInfos }) => {
   }, [])
 
   return (
-    <div
-      className="relative w-full h-[600px]"
-      style={{
-        backgroundColor: color
-      }}
-    >
+    <div className="relative w-full h-[600px]">
       <FontAwesomeIcon
         icon={faClose}
         className="absolute right-4 top-4 z-10 cursor-pointer text-white"

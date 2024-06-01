@@ -15,10 +15,11 @@ const modalStyle = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     maxWidth: "400px",
-    height: "600px",
+    height: "700px",
     borderRadius: "24px",
     padding: 0,
-    border: "0"
+    border: "0",
+    backgroundColor: "#363636"
   },
   overlay: {
     backgroundColor: "rgba(0,0,0, 0.5)"

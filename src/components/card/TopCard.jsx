@@ -10,7 +10,10 @@ const TopCard = ({ pokeInfo, color, imgUrl }) => {
   return (
     <div
       id="top-panel"
-      className="w-full h-[175px] flex overflow-hidden flex-row items-center text-white relative"
+      className="w-full h-[235px] flex rounded-b-3xl overflow-hidden flex-row mb-3 items-center text-white relative"
+      style={{
+        backgroundColor: color
+      }}
     >
       <div className="absolute -top-4">
         <p
@@ -34,7 +37,7 @@ const TopCard = ({ pokeInfo, color, imgUrl }) => {
           }}
         />
       </div>
-      <div className="absolute w-1/3 left-10 bottom-0 opacity-30">
+      <div className="absolute w-1/3 left-10 bottom-4 opacity-30">
         <img src={pokeball} alt="Pokeball" className="relative" />
         <span
           style={{
@@ -53,7 +56,7 @@ const TopCard = ({ pokeInfo, color, imgUrl }) => {
         <img
           src={imgUrl}
           alt={pokeInfo?.name}
-          className="w-4/6 z-100 saturate-150 brightness-105"
+          className="w-5/6 z-100 saturate-150 brightness-105"
         />
       </div>
       <div className="w-1/2 h-full relative flex flex-col justify-center px-5 font-bold">
