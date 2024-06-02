@@ -18,40 +18,42 @@ const Stats = ({ selectedPokeInfos, color, loading }) => {
       {loading ? (
         <LocalLoading color={color} />
       ) : (
-        <div className="h-2/3 w-full overflow-hidden relative mt-3">
-          <img
-            src={bitImg}
-            alt="bit-version"
-            className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-10 w-1/5"
-          />
-          <ResponsiveRadar
-            data={stats}
-            keys={["value"]}
-            indexBy="stat"
-            maxValue="150"
-            margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-            valueFormat=">-.0f"
-            colors={color}
-            borderColor={color}
-            borderWidth={3}
-            fillOpacity={0.4}
-            gridLabelOffset={10}
-            motionConfig="wobbly"
-            gridShape="linear"
-            enableDots={false}
-            isInteractive={false}
-            theme={{
-              axis: {
-                ticks: {
-                  text: {
-                    fill: "#ffffff",
-                    fontSize: 13,
-                    textTransform: "capitalize"
+        <div className="h-full w-full mt-3 flex flex-col gap-2">
+          <div className="h-2/3 w-full overflow-hidden relative">
+            <img
+              src={bitImg}
+              alt="bit-version"
+              className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-10 w-1/5"
+            />
+            <ResponsiveRadar
+              data={stats}
+              keys={["value"]}
+              indexBy="stat"
+              maxValue="150"
+              margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+              valueFormat=">-.0f"
+              colors={color}
+              borderColor={color}
+              borderWidth={3}
+              fillOpacity={0.4}
+              gridLabelOffset={10}
+              motionConfig="wobbly"
+              gridShape="linear"
+              enableDots={false}
+              isInteractive={false}
+              theme={{
+                axis: {
+                  ticks: {
+                    text: {
+                      fill: "#ffffff",
+                      fontSize: 13,
+                      textTransform: "capitalize"
+                    }
                   }
                 }
-              }
-            }}
-          />
+              }}
+            />
+          </div>
           <TypeStats selectedPokeInfos={selectedPokeInfos} />
         </div>
       )}

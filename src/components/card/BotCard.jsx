@@ -56,7 +56,7 @@ const BotCard = ({ selectedPokeInfos, pokeDetails, color }) => {
     const timer = setTimeout(() => {
       setLoading(false)
       dispatch(setLocalLoading(false))
-    }, 1000)
+    }, 500)
 
     return () => clearTimeout(timer)
   }, [activeComp, dispatch])

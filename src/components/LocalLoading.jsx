@@ -19,7 +19,7 @@ const LocalLoading = ({ color }) => {
 
   return (
     <div
-      className={` ${isLocalLoading ? "block" : "hidden"} w-full h-full relative rounded-3xl transition-all duration-500 ease-in-out z-50 bg-[#363636] pointer-events-none`}
+      className={` ${isLocalLoading ? "block" : "hidden"} w-full h-full relative rounded-3xl transition-all duration-400 ease-in-out z-50 bg-[#363636] pointer-events-none`}
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-500 flex justify-center">
         <PokeSvg color={color} />
