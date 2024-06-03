@@ -28,6 +28,8 @@ const modalStyle = {
 
 const List = () => {
   const [pokeList, setPokeList] = useState([])
+  const [initialLoading, setInitialLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
   const [selectedPokeInfos, setSelectedPokeDetails] = useState(null)
   const [pokeInfoList, setPokeInfoList] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
@@ -42,23 +44,61 @@ const List = () => {
     setModalOpen(false)
   }
 
+  const ITEMS_PER_PAGE = 30
+
+  const uniquePokeList = new Map()
+
+  const getList = async (page) => {
+    const { response, err } = await pokeApi.getAll()
+
+    if (response) {
+      const data = response.results
+      const startIndex = (page - 1) * ITEMS_PER_PAGE
+      const endIndex = page * ITEMS_PER_PAGE
+      const newItems = data.slice(startIndex, endIndex)
+
+      setPokeList((prevList) => {
+        const uniqueItems = new Map(prevList.map((item) => [item.name, item]))
+        newItems.forEach((item) => uniqueItems.set(item.name, item))
+        return Array.from(uniqueItems.values())
+      })
+    } else {
+      console.error(err)
+    }
+  }
+
   useEffect(() => {
-    dispatch(setGlobalLoading(true))
-
-    const getList = async () => {
-      const { response, err } = await pokeApi.getAll()
-
-      if (response) {
-        const data = response.results
-        setPokeList(data)
-      } else {
-        console.error(err)
+    const loadInitialList = async () => {
+      if (initialLoading) {
+        dispatch(setGlobalLoading(true))
+        await getList(currentPage)
+        dispatch(setGlobalLoading(false))
+        setInitialLoading(false)
       }
     }
-    dispatch(setGlobalLoading(false))
 
-    getList()
+    loadInitialList()
   }, [])
+
+  useEffect(() => {
+    const handleScroll = async () => {
+      if (
+        window.innerHeight + window.scrollY >=
+          document.body.offsetHeight - 500 &&
+        !modalOpen
+      ) {
+        const nextPage = currentPage + 1
+        await getList(nextPage)
+        setCurrentPage(nextPage)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [currentPage, modalOpen])
 
   return (
     <div className="flex flex-row flex-wrap gap-4 justify-center items-center">

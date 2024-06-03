@@ -11,6 +11,14 @@ const Stats = ({ selectedPokeInfos, color, loading }) => {
     value: statObj?.base_stat
   }))
 
+  const maxValuecheck = (stats) => {
+    for (let i = 0; i < stats?.length; i++) {
+      const value = stats[i]?.value
+      console.log("hello: ", value)
+      if (value > 150) return true
+    }
+  }
+
   const bitImg = selectedPokeInfos?.sprites?.front_default
 
   return (
@@ -19,7 +27,7 @@ const Stats = ({ selectedPokeInfos, color, loading }) => {
         <LocalLoading color={color} />
       ) : (
         <div className="h-full w-full mt-3 flex flex-col gap-2">
-          <div className="h-2/3 w-full overflow-hidden relative">
+          <div className="h-2/3 w-full relative">
             <img
               src={bitImg}
               alt="bit-version"
@@ -29,7 +37,7 @@ const Stats = ({ selectedPokeInfos, color, loading }) => {
               data={stats}
               keys={["value"]}
               indexBy="stat"
-              maxValue="150"
+              maxValue={maxValuecheck(stats) === true ? 255 : 155}
               margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
               valueFormat=">-.0f"
               colors={color}
@@ -40,7 +48,7 @@ const Stats = ({ selectedPokeInfos, color, loading }) => {
               motionConfig="wobbly"
               gridShape="linear"
               enableDots={false}
-              isInteractive={false}
+              isInteractive={true}
               theme={{
                 axis: {
                   ticks: {
@@ -49,6 +57,11 @@ const Stats = ({ selectedPokeInfos, color, loading }) => {
                       fontSize: 13,
                       textTransform: "capitalize"
                     }
+                  }
+                },
+                tooltip: {
+                  container: {
+                    textTransform: "capitalize"
                   }
                 }
               }}

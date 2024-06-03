@@ -10,8 +10,8 @@ const Evolution = ({ pokeDetails, color, loading }) => {
   const [evolDetails, setEvolDetails] = useState(null)
 
   const url = pokeDetails?.evolution_chain?.url
-  const parts = url.split("/")
-  const chainId = parts[parts.length - 2]
+  const parts = url?.split("/")
+  const chainId = parts[parts?.length - 2]
 
   const evolutionList = (evolDetails) => {
     const speciesList = []
@@ -52,13 +52,13 @@ const Evolution = ({ pokeDetails, color, loading }) => {
   return evolDetails ? (
     <div
       id="evolution"
-      className="h-full w-full flex gap-3 justify-center items-center text-white"
+      className={`h-full w-full flex gap-3 justify-center items-center text-white ${evolDetails.length > 3 ? "flex-wrap" : null}`}
     >
       {loading ? (
         <LocalLoading color={color} />
       ) : (
         evolDetails.map((detail, idx) => (
-          <div className="w-1/4 flex items-center " key={detail.name + idx}>
+          <div className="w-1/4 flex items-center" key={detail.name + idx}>
             <div className="flex flex-col justify-center items-center gap-1">
               <img
                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${urlConvert(detail)}.png`}

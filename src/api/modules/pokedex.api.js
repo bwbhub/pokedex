@@ -2,12 +2,14 @@ import publicClient from "../client/public.client"
 
 const pokedexEndpoints = {
   pokedex: "/pokedex",
-  pokeList: "/pokemon",
+  pokeList: "/pokemon/?offset=0&limit=100000s",
   pokemon: ({ pokeId }) => `pokemon/${pokeId}`,
   langue: "/language",
   species: ({ pokeId }) => `/pokemon-species/${pokeId}`,
   evolution: ({ chainId }) => `/evolution-chain/${chainId}`,
-  type: ({ typeName }) => `/type/${typeName}`
+  type: ({ typeName }) => `/type/${typeName}`,
+  generation: "/generation",
+  generationId: ({ genId }) => `/generation/${genId}`
 }
 
 const pokeApi = {
@@ -33,6 +35,26 @@ const pokeApi = {
     try {
       const response = await publicClient.get(
         pokedexEndpoints.pokemon({ pokeId })
+      )
+
+      return { response }
+    } catch (err) {
+      return { err }
+    }
+  },
+  getGen: async () => {
+    try {
+      const response = await publicClient.get(pokedexEndpoints.generation)
+
+      return { response }
+    } catch (err) {
+      return { err }
+    }
+  },
+  getGenId: async ({ genId }) => {
+    try {
+      const response = await publicClient.get(
+        pokedexEndpoints.generationId({ genId })
       )
 
       return { response }
