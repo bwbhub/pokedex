@@ -22,7 +22,7 @@ const capitalizeUppercase = (text) => {
 const urlConvert = (text) => {
   const url = text?.url
   const parts = url?.split("/")
-  const id = parts[parts.length - 2]
+  const id = parts[parts?.length - 2]
 
   return id
 }

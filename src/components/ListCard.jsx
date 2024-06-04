@@ -35,7 +35,7 @@ const ListCard = ({ poke, openModal, modalOpen }) => {
 
   return (
     <div
-      className={`card-poke flex flex-col p-5 w-[27%] relative rounded-lg text-gray-100 font-semibold h-32 cursor-pointer`}
+      className="group flex flex-col p-5 w-[27%] relative rounded-lg text-gray-100 font-semibold h-32 cursor-pointer shadow-lg hover:scale-105 duration-500"
       style={{
         backgroundColor: color,
         backgroundImage:
@@ -89,7 +89,7 @@ const ListCard = ({ poke, openModal, modalOpen }) => {
             {pokeInfo?.name}
           </h2>
         </div>
-        <div className="img-poke absolute w-[45%] right-0 -top-2 z-100 transition ease-in-out duration-500 saturate-150 brightness-105">
+        <div className="absolute w-[45%] right-0 -top-2 z-100 transition duration-500 saturate-150 brightness-105 group-hover:animate-tilt">
           <img src={imgUrl} alt={pokeInfo?.name} className="w-full" />
         </div>
         <div className="flex gap-3">

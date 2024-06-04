@@ -17,7 +17,7 @@ const TopCard = ({ pokeInfo, color, imgUrl }) => {
     >
       <div className="absolute -top-4">
         <p
-          className="bg-title relative text-9xl uppercase top-1 font-bold"
+          className="bg-title animate-sliding relative text-9xl uppercase top-1 font-bold delay-700"
           style={{
             color: color
           }}

@@ -14,7 +14,6 @@ const Stats = ({ selectedPokeInfos, color, loading }) => {
   const maxValuecheck = (stats) => {
     for (let i = 0; i < stats?.length; i++) {
       const value = stats[i]?.value
-      console.log("hello: ", value)
       if (value > 150) return true
     }
   }

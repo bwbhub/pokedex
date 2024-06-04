@@ -18,39 +18,7 @@ body {
   align-items: center;
 }
 
-.card-poke:hover .img-poke {
-  transform: scale(1.1) rotate(12deg);
-}
-
 .bg-title {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: white;
-  animation: sliding 15s infinite linear;
-  animation-delay: 1.5s;
-}
-
-@keyframes sliding {
-  0% {
-    left: 0;
-  }
-  50% {
-    left: -40%;
-  }
-  100% {
-    left: 0;
-  }
-}
-
-.pokeball {
-  animation: frames 2s linear 0s infinite;
-}
-
-/* AnimationFrames */
-@keyframes frames {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }

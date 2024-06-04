@@ -8,7 +8,9 @@ const PokeSvg = ({ color, loading }) => {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={loading ? "absolute -top-[50%] -z-10" : "w-2/3 h-2/3 pokeball"}
+      className={
+        loading ? "fixed -top-[63%] -z-10" : "w-2/3 h-2/3 animate-rotate"
+      }
     >
       <path
         d="M21.9012 13H16.8506C16.3873 15.2822 14.3696 17 11.9506 17C9.53167 17 7.51391 15.2822 7.05064 13H2C2.50172 18.0533 6.76528 22 11.9506 22C17.136 22 21.3995 18.0533 21.9012 13Z"

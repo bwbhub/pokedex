@@ -26,32 +26,25 @@ const modalStyle = {
   }
 }
 
-const List = () => {
+const List = ({
+  query,
+  openModal,
+  modalOpen,
+  closeModal,
+  selectedPokeInfos
+}) => {
   const [pokeList, setPokeList] = useState([])
   const [initialLoading, setInitialLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
-  const [selectedPokeInfos, setSelectedPokeDetails] = useState(null)
   const [pokeInfoList, setPokeInfoList] = useState([])
-  const [modalOpen, setModalOpen] = useState(false)
 
   const dispatch = useDispatch()
-
-  const openModal = (details) => {
-    setSelectedPokeDetails(details)
-    setModalOpen(true)
-  }
-  const closeModal = () => {
-    setModalOpen(false)
-  }
-
-  const ITEMS_PER_PAGE = 30
-
-  const uniquePokeList = new Map()
 
   const getList = async (page) => {
     const { response, err } = await pokeApi.getAll()
 
     if (response) {
+      const ITEMS_PER_PAGE = 30
       const data = response.results
       const startIndex = (page - 1) * ITEMS_PER_PAGE
       const endIndex = page * ITEMS_PER_PAGE
